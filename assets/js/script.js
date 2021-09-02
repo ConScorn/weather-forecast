@@ -1,6 +1,6 @@
 // assign global variables /////////////////////////////////////////////////////
-// apiKey
-// HMTL IDS
+const apiKey = "b182c388e8e8d507a2f36ed916e73829";
+// HTML ID'S
 // city
 // temp
 // wind

@@ -15,22 +15,33 @@
 <body>
     <header id="header" class="p-2rem">Weather Dashboard</header>
     <!-- left column ---------------------------->
-    <div id="left-container" class="col-md-2">
-        <h1 id="search-label">Search for a City:</h1>
-        <input id="city-input"></input>
-        <button id="search-btn" class="btn btn-success btn-block">Search</button>
-        <div id="past-searches" class="">
-        </div>
+    <div id="leftContainer" class="col-md-2">
+        <h1 id="searchLabel">Search for a City:</h1>
+        <input id="cityInput"></input>
+        <button id="searchBtn" class="btn btn-success btn-block">Search</button>
+        <div id="pastSearches" class=""></div>
     </div>
     <!-- right column --------------------------->
     <!-- container for city, date, temp wind, humidity, uv index -->
-    <container id="right-container" class="col-md-8">
-        <section id="current-day" class=""></section>
-        <!-- color of uv index -->
+    <div id="rightContainer" class="col-md-8">
+        <section id="currentDay" class="">
+            <h2 id="cityName" class=""></h2>
+            <h3 id="currentDay" class=""></h3>
+            <img id="icon" />
+            <h4 id="temp"></h4>
+            <h5 id="wind"></h5>
+            <h6 id="humidity"></h6>
+            <div id="uvContainer">
+                <h7 id="uv"></h7>
+            </div>
+        </section>
+        <div id="fiveDayContainer" class=""></div>
+
         <!-- container for five day forcast (loop) -->
         <!-- each card will have date, icon for weather, temp, wind, humidity-->
-    </container>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 
