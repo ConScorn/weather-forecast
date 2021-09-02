@@ -1,0 +1,40 @@
+* {
+    font-family: Noto Sans;
+}
+
+.p-1rem {
+    padding: 1rem;
+}
+
+.p-2rem {
+    padding: 2rem;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* .a-c-c {
+    align-content: center;
+} */
+
+#header {
+    font-size: 300%;
+    background-color: #56b58a;
+    color: white;
+}
+
+#left-container {
+    margin-top: 2rem;
+}
+
+#search-label {
+    font-size: 150%;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+#city-input {
+    width: 100%;
+    margin-bottom: 12px;
+}

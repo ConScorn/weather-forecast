@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:regular,italic,700,700italic" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <header id="header" class="p-2rem">Weather Dashboard</header>
+    <!-- left column ---------------------------->
+    <div id="left-container" class="col-md-2">
+        <h1 id="search-label">Search for a City:</h1>
+        <input id="city-input"></input>
+        <button id="search-btn" class="btn btn-success btn-block">Search</button>
+        <div id="past-searches" class="">
+        </div>
+    </div>
+    <!-- right column --------------------------->
+    <!-- container for city, date, temp wind, humidity, uv index -->
+    <container id="right-container" class="col-md-8">
+        <section id="current-day" class=""></section>
+        <!-- color of uv index -->
+        <!-- container for five day forcast (loop) -->
+        <!-- each card will have date, icon for weather, temp, wind, humidity-->
+    </container>
+
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
