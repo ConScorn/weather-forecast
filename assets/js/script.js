@@ -140,6 +140,8 @@ function createButtons() {
 // click search button - call the api and get our cream filling
 searchBtn.addEventListener('click', getWeather);
 // click on past city button (class) - just call the getWeather function with the label of the button
-// pastSearches.addEventListener('click', getWeather);
+// pastSearches.addEventListener('click', function () {
+
+// });
 
 init();
