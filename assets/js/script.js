@@ -130,14 +130,16 @@ function createButtons() {
             pastButton.setAttribute('id', 'm12');
             pastButton.innerHTML = city;
         })
+    } else {
+        return "";
     }
     
 }
 
 // events ////////////////////////////////////////////////////////////////////
 // click search button - call the api and get our cream filling
-searchBtn.addEventListener('click', getWeather(cityInput.value));
+searchBtn.addEventListener('click', getWeather);
 // click on past city button (class) - just call the getWeather function with the label of the button
-pastSearches.addEventListener('click', getWeather(Element.innerHTML));
+// pastSearches.addEventListener('click', getWeather);
 
 init();
