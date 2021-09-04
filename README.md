@@ -8,7 +8,7 @@ See the deployed site: https://conscorn.github.io/weather-forecast/
 Clone the repository: https://github.com/ConScorn/weather-forecast
 To use the app, enter a city into the input on the left, and click 'Search'. That's all!
 
-![screenshot](img/screenshot.PNG)
+![screenshot](assets/img/screenshot.PNG)
 
 ## Unfortunately, due to time constraints, a few things do not work properly: 
 
