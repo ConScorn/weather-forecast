@@ -6,7 +6,7 @@ let wind = document.getElementById('wind');
 let humidity = document.getElementById('humidity');
 let uvContainer = document.getElementById('uvContainer');
 let uv = document.getElementById('uv');
-let icon = document.getElementById('icon');
+let iconContainer = document.getElementById('iconContainer');
 let cityInput = document.getElementById('cityInput');
 let searchBtn = document.getElementById('searchBtn');
 let fiveDayContainer = document.getElementById('fiveDayContainer');
@@ -39,10 +39,33 @@ function init() {
     console.log('no data');
 }
 
+function convertToFahrenheit(temp) {
+    return (Math.round(((temp - 273.15)*1.8)+32));
+
+}
 
 function getWeather(citySearch) {
     citySearch = cityInput.value;
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${cWApiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            let cityValue = data['name'];
+            let dateValue = new Date(data.dt * 1000);
+            let tempValue = data['main']['temp'];
+            let descValue = data['weather'][0]['description'];
+            let windValue = data['wind']['speed'];
+            let humidityValue = data['main']['humidity'];
+            let iconValue = data['weather'][0]['icon'];
 
+            cityName.innerHTML = cityValue;
+            date.innerHTML = dateValue.toLocaleDateString();
+            temp.innerHTML = `Temp: ${convertToFahrenheit(tempValue)} F`;
+            wind.innerHTML = `Wind: ${windValue} MPH`;
+            humidity.innerHTML = `Humidity: ${humidityValue}`;
+            iconContainer.innerHTML = `<img id="icon" src="http://openweathermap.org/img/w/${iconValue}.png" />`;
+        })
+
+     .catch(err => alert("Not a City!"))
 
 }
 // param: value of search box (city name)
@@ -60,26 +83,5 @@ function getWeather(citySearch) {
 // init - check local storage
 init();
 // click search button - call the api and get our cream filling
-searchBtn.addEventListener('click', function () {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${cWApiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            let cityValue = data['name'];
-            let dateValue = new Date(data.dt * 1000);
-            let tempValue = data['main']['temp'];
-            let descValue = data['weather'][0]['description'];
-            let windValue = data['wind']['speed'];
-            let humidityValue = data['main']['humidity'];
-            let iconValue = data['weather'][0]['icon'];
-
-            cityName.innerHTML = cityValue;
-            date.innerHTML = dateValue.toLocaleDateString();
-            temp.innerHTML = tempValue;
-            wind.innerHTML = windValue;
-            humidity.innerHTML = humidityValue;
-            // icon.setAttribute('href', iconValue);
-        })
-
-    // .catch(err => alert("Not a City!"))
-});
+searchBtn.addEventListener('click', getWeather);
 // click on past city button (class) - just call the getWeather function with the label of the button
