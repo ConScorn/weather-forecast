@@ -18,8 +18,8 @@ const stDayApiKey = "927d09bc49dbee6aac7f5cb1df707542";
 let cities = [];
 
 // API call https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-// API call (Current Weather): http://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-// API call (16 Day Forecast): http://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}
+// API call (Current Weather): https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+// API call (16 Day Forecast): https://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}
 
 // functions //////////////////////////////////////////////////////////////////
 // This function will initialize the page upon loading
@@ -39,7 +39,7 @@ function convertUnix(date) {
 
 function getWeather(citySearch) {
     citySearch = cityInput.value;
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${cWApiKey}`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${cWApiKey}`)
         .then(response => response.json())
         .then(data => {
             let cityValue = data['name'];
@@ -55,7 +55,7 @@ function getWeather(citySearch) {
             temp.innerHTML = `Temp: ${convertToFahrenheit(tempValue)} F`;
             wind.innerHTML = `Wind: ${windValue} MPH`;
             humidity.innerHTML = `Humidity: ${humidityValue}`;
-            iconContainer.innerHTML = `<img id="icon" alt="Weather Icon" src="http://openweathermap.org/img/w/${iconValue}.png" />`;
+            iconContainer.innerHTML = `<img id="icon" alt="Weather Icon" src="https://openweathermap.org/img/w/${iconValue}.png" />`;
         })
 
      .catch(err => alert("Not a City!"))
@@ -66,12 +66,12 @@ function getWeather(citySearch) {
 function getForecast() {
     fiveDayContainer.innerHTML = "";
     let cnt = 6;
-    fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput.value}&cnt=${cnt}&appid=${stDayApiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput.value}&cnt=${cnt}&appid=${stDayApiKey}`)
         .then(response => response.json())
         .then(data => {
             for (i = 1; i <= 5; i++) {
                 let dateValue = convertUnix(data['list'][i]['dt']);
-                let iconValue = `http://openweathermap.org/img/w/${data['list'][i]['weather'][0]['icon']}.png`; 
+                let iconValue = `https://openweathermap.org/img/w/${data['list'][i]['weather'][0]['icon']}.png`; 
                 let tempValue = convertToFahrenheit(data['list'][i]['temp']['day']);
                 let windValue = `${data['list'][i]['speed']} MPH`;
                 let humidityValue = data['list'][i]['humidity'];
@@ -133,21 +133,11 @@ function createButtons() {
     }
     
 }
-// param: value of search box (city name)
-// call the weather api with the city name to get the coordinates (lat, lon)
-// find the lat and lon within the data and set them as varibles
-// in the then of the call above, use the lat and lon to get curent weather and future
-// in the then of the call above, i find the data i need for the top card on the right (city, date, temp, wind, humidity, uv index)
-// RENDER FUNCTION if uv index greater than some value, set the class
-// RENDER FUNCTION for the 5 day forecast i want to loop through array of daily data and dynamically create a card and append it to the website
-// each card will have date, icon for condition, temp, wind, humidty
-// save to localstorage the city the user just searched,
-// check localstorage for that city, dont add if already there
 
 // events ////////////////////////////////////////////////////////////////////
-// init - check local storage
-init();
 // click search button - call the api and get our cream filling
-searchBtn.addEventListener('click', getWeather);
+searchBtn.addEventListener('click', getWeather(cityInput.value));
 // click on past city button (class) - just call the getWeather function with the label of the button
-pastSearches.addEventListener('click', getWeather);
+pastSearches.addEventListener('click', getWeather(Element.innerHTML));
+
+init();
