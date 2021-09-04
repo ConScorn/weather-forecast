@@ -67,11 +67,12 @@ function getWeather(citySearch) {
             temp.innerHTML = `Temp: ${convertToFahrenheit(tempValue)} F`;
             wind.innerHTML = `Wind: ${windValue} MPH`;
             humidity.innerHTML = `Humidity: ${humidityValue}`;
-            iconContainer.innerHTML = `<img id="icon" src="http://openweathermap.org/img/w/${iconValue}.png" />`;
+            iconContainer.innerHTML = `<img id="icon" alt="Weather Icon" src="http://openweathermap.org/img/w/${iconValue}.png" />`;
         })
 
      .catch(err => alert("Not a City!"))
     getForecast();
+    
 }
 
 function getForecast() {
@@ -81,13 +82,38 @@ function getForecast() {
         .then(data => {
             for (i = 1; i <= 5; i++) {
                 let dateValue = convertUnix(data['list'][i]['dt']);
-                let iconValue = data['list'][i]['weather'][0]['icon'];
+                let iconValue = `http://openweathermap.org/img/w/${data['list'][i]['weather'][0]['icon']}.png`; 
                 let tempValue = convertToFahrenheit(data['list'][i]['temp']['day']);
-                let windValue = data['list'][i]['speed'];
+                let windValue = `${data['list'][i]['speed']} MPH`;
                 let humidityValue = data['list'][i]['humidity'];
-                
 
-
+                let forecastDay = document.createElement('div');
+                let forecastDate = document.createElement('h8');
+                let forecastIcon = document.createElement('img');
+                let forecastTemp = document.createElement('h8');
+                let forecastWind = document.createElement('h8');
+                let forecastHumidity = document.createElement('h8');
+                fiveDayContainer.append(forecastDay);
+                forecastDay.setAttribute('class', 'col-md-2');
+                forecastDate.setAttribute('class', 'btn-block');
+                forecastTemp.setAttribute('class', 'btn-block');
+                forecastWind.setAttribute('class', 'btn-block');
+                forecastHumidity.setAttribute('class', 'btn-block');
+                forecastDate.setAttribute('id', 'cWhite');
+                forecastTemp.setAttribute('id', 'cWhite');
+                forecastWind.setAttribute('id', 'cWhite');
+                forecastHumidity.setAttribute('id', 'cWhite');
+                forecastDay.setAttribute('id', 'forecastCard');
+                forecastIcon.setAttribute('src', iconValue);
+                forecastDate.innerHTML = dateValue;
+                forecastTemp.innerHTML = `Temp: ${tempValue}`;
+                forecastWind.innerHTML = `Wind: ${windValue}`;
+                forecastHumidity.innerHTML = `Humidity: ${humidityValue}`;
+                forecastDay.append(forecastDate);
+                forecastDay.append(forecastIcon);
+                forecastDay.append(forecastTemp);
+                forecastDay.append(forecastWind);
+                forecastDay.append(forecastHumidity);
             }
         })
     }

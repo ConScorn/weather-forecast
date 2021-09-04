@@ -26,6 +26,14 @@
     font-weight: bold;
 }
 
+.b-s {
+    border: solid;
+}
+
+.c-white {
+    color: white;
+}
+
 /* .a-c-c {
     align-content: center;
 } */
@@ -52,6 +60,33 @@
 }
 
 #rightContainer {
-    border: solid;
     margin: 2rem;
+}
+
+#currentDay {
+    background-color: #56b58a;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+#fiveDayContainer {
+    margin: 1rem;
+}
+
+#forecastCard {
+    padding: 12px;
+    border: solid;
+    height: 40vh;
+    background-color: #56b58a;
+    border-radius: 12px;
+    margin: 1rem;
+    font-size: 110%
+}
+
+#cWhite {
+    color: white;
+}
+
+h8 {
+    width: 100%;
 }
