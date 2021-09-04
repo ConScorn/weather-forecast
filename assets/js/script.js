@@ -13,12 +13,12 @@ let fiveDayContainer = document.getElementById('fiveDayContainer');
 let pastSearches = document.getElementById('city');
 const OneCallApiKey = "b182c388e8e8d507a2f36ed916e73829";
 const cWApiKey = "4e5ba1d148f321e975a3ab4ac38b8ed5"
-const sixteenDayApiKey = "586b522e8601ad92b26704e049e1a65d";
+const stDayApiKey = "927d09bc49dbee6aac7f5cb1df707542";
 let cities = [];
 
 // API call https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-// API call (16 Day Forecast): http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API key}
 // API call (Current Weather): http://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+// API call (16 Day Forecast): http://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}
 
 // functions //////////////////////////////////////////////////////////////////
 // This function will initialize the page upon loading
@@ -44,6 +44,11 @@ function convertToFahrenheit(temp) {
 
 }
 
+function convertUnix(date) {
+    let unixStamp = new Date(date * 1000);
+    return unixStamp.toLocaleDateString();
+}
+
 function getWeather(citySearch) {
     citySearch = cityInput.value;
         fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${cWApiKey}`)
@@ -66,8 +71,26 @@ function getWeather(citySearch) {
         })
 
      .catch(err => alert("Not a City!"))
-
+    getForecast();
 }
+
+function getForecast() {
+    let cnt = 6;
+    fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput.value}&cnt=${cnt}&appid=${stDayApiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            for (i = 1; i <= 5; i++) {
+                let dateValue = convertUnix(data['list'][i]['dt']);
+                let iconValue = data['list'][i]['weather'][0]['icon'];
+                let tempValue = convertToFahrenheit(data['list'][i]['temp']['day']);
+                let windValue = data['list'][i]['speed'];
+                let humidityValue = data['list'][i]['humidity'];
+                
+
+
+            }
+        })
+    }
 // param: value of search box (city name)
 // call the weather api with the city name to get the coordinates (lat, lon)
 // find the lat and lon within the data and set them as varibles
