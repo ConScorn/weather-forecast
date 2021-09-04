@@ -34,9 +34,11 @@
     color: white;
 }
 
-/* .a-c-c {
-    align-content: center;
-} */
+#m12 {
+    margin: 12px 0;
+    padding: 0.5rem 0;
+    border-radius: 12px;
+}
 
 #header {
     font-size: 300%;
@@ -52,6 +54,10 @@
     font-size: 150%;
     text-align: center;
     margin-bottom: 12px;
+}
+
+#searchBtn {
+    border-radius: 12px;
 }
 
 #cityInput {
@@ -76,7 +82,8 @@
 #forecastCard {
     padding: 12px;
     border: solid;
-    height: 40vh;
+    min-height: 25vh;
+    max-height: 30vh;
     background-color: #56b58a;
     border-radius: 12px;
     margin: 1rem;
@@ -85,6 +92,7 @@
 
 #cWhite {
     color: white;
+    margin: 0.5rem 0;
 }
 
 h8 {

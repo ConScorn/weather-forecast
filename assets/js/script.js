@@ -10,7 +10,8 @@ let iconContainer = document.getElementById('iconContainer');
 let cityInput = document.getElementById('cityInput');
 let searchBtn = document.getElementById('searchBtn');
 let fiveDayContainer = document.getElementById('fiveDayContainer');
-let pastSearches = document.getElementById('city');
+let pastSearches = document.getElementById('pastSearches');
+let pastButton = document.querySelectorAll('#m12')
 const OneCallApiKey = "b182c388e8e8d507a2f36ed916e73829";
 const cWApiKey = "4e5ba1d148f321e975a3ab4ac38b8ed5"
 const stDayApiKey = "927d09bc49dbee6aac7f5cb1df707542";
@@ -23,20 +24,7 @@ let cities = [];
 // functions //////////////////////////////////////////////////////////////////
 // This function will initialize the page upon loading
 function init() {
-    // check local storage for the key (cities) if present
-    let citiesStorage = localStorage.getItem('cities');
-    if (citiesStorage) {
-        // loop through local storage and create buttons with the button label as the city
-        cities = JSON.parse(citiesStorage);
-        console.log(cities);
-        cities.forEach(city => {
-            // make and append a button to the left panel
-            let pastButton = document.createElement("button");
-            pastButton.innerHTML = city;
-            pastSearches.appendChild(pastButton);
-        })
-    }
-    console.log('no data');
+    createButtons();
 }
 
 function convertToFahrenheit(temp) {
@@ -72,10 +60,11 @@ function getWeather(citySearch) {
 
      .catch(err => alert("Not a City!"))
     getForecast();
-    
+    saveCity(cityInput.value);
 }
 
 function getForecast() {
+    fiveDayContainer.innerHTML = "";
     let cnt = 6;
     fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput.value}&cnt=${cnt}&appid=${stDayApiKey}`)
         .then(response => response.json())
@@ -116,7 +105,34 @@ function getForecast() {
                 forecastDay.append(forecastHumidity);
             }
         })
+}
+
+function saveCity(citySearch) {
+    if (cities.includes(citySearch)) {
+        
+    } else {
+        cities.push(citySearch);
     }
+    localStorage.setItem('cities', JSON.stringify(cities));
+    createButtons();
+}
+
+function createButtons() {
+    pastSearches.innerHTML = "";
+    let citiesStorage = localStorage.getItem('cities');
+    if (citiesStorage != null) {
+        cities = JSON.parse(citiesStorage);
+        console.log(cities);
+        cities.forEach(city => {
+            let pastButton = document.createElement("button");
+            pastSearches.appendChild(pastButton);
+            pastButton.setAttribute('class', 'btn-block');
+            pastButton.setAttribute('id', 'm12');
+            pastButton.innerHTML = city;
+        })
+    }
+    
+}
 // param: value of search box (city name)
 // call the weather api with the city name to get the coordinates (lat, lon)
 // find the lat and lon within the data and set them as varibles
@@ -134,3 +150,4 @@ init();
 // click search button - call the api and get our cream filling
 searchBtn.addEventListener('click', getWeather);
 // click on past city button (class) - just call the getWeather function with the label of the button
+pastSearches.addEventListener('click', getWeather);
